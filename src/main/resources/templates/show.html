@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<!--    <meta charset="UTF-8">-->
+    <meta content="text/html;charset=utf-8" />
+    <title>展示用户信息</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+</head>
+<body>
+<br>
+<br>
+<br>
+<br>
+<div class="col-md-4">
+    <a th:href="@{/toAdd}" class="btn btn-primary">增加用户</a>
+    <a th:href="@{/getUsersByLimit}" class="btn btn-primary">显示全部用户</a>
+    <a th:href="@{/logout}" class="btn btn-primary">注销</a>
+</div>
+<div class="col-md-4" style="float: right">
+    <a th:href="@{/export}" class="btn btn-primary">导出</a>
+    <a th:href="@{/uploadPage}" class="btn btn-primary">导入</a>
+</div>
+<form class="form-inline" th:action="@{/searchUser}" th:method="post">
+    <div class="form-group">
+        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Search...">
+    </div>
+    <input type="submit" value="搜索" class="btn btn-primary">
+    <span th:text="${err}" style="color: red;font-weight: bold"></span>
+</form>
+<br>
+<br>
+
+<table class="table" width="100" >
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>firstname</th>
+        <th>lastname</th>
+        <th>email</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user :${pages.list}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.firstname}"></td>
+        <td th:text="${user.lastname}"></td>
+        <td th:text="${user.email}"></td>
+        <td>
+            <a class="btn btn-primary" th:href="@{/toUpdate(id=${user.id})}">修改</a> |&nbsp
+            <a class="btn btn-danger" th:href="@{/deleteUser(id=${user.id})}" onclick="return window.confirm('Are you sure?')">删除</a>
+        </td>
+    </tr>
+
+    </tbody>
+</table>
+<div align="center">
+    <a th:unless="${pages.isFirstPage}"
+       th:href="@{/getUsersByLimit}">首 页</a>
+    <a th:unless="${pages.isFirstPage}"
+       th:href="@{/getUsersByLimit(startIndex=${pages.hasPreviousPage}?${pages.prePage}:1)}">上一页</a>
+    <a th:unless="${pages.isLastPage}"
+       th:href="@{/getUsersByLimit(startIndex=${pages.hasNextPage}?${pages.nextPage}:${pages.pages})}">下一页</a>
+    <a th:unless="${pages.isLastPage}"
+       th:href="@{/getUsersByLimit(startIndex=${pages.pages})}">末 页</a>
+</div>
+</body>
+</html>

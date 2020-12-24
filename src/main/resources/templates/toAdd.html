@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新增用户</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+</head>
+<body>
+<br>
+<br>
+<br>
+<br>
+<form action="/addUser" method="post" style="margin: 100px">
+    <div class="form-group">
+        <label for="firstname">firstname</label>
+        <input type="text" class="form-control" id="firstname" name="firstname" style="width: 20%" required>
+    </div>
+    <div class="form-group">
+        <label for="lastname">lastname</label>
+        <input type="text" class="form-control" id="lastname" name="lastname"style="width: 20%" required>
+    </div>
+    <div class="form-group">
+        <label for="email">email</label>
+        <input type="email" class="form-control" id="email" name="email"style="width: 20%" required>
+    </div>
+    <input type="submit" value="提交" onclick="return window.confirm('Are you sure?')">
+</form>
+</body>
+</html>
